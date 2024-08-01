@@ -3,7 +3,7 @@ import json
 from typing import List, Dict, Any
 from file_handler import FileHandler
 from diff_generator import generate_diff
-from diff_visualizer import visualize_diff
+from diff_serializer import serialize_diff, generate_diff_summary
 
 class DiffTool:
     def __init__(self, file_handler: FileHandler):
@@ -17,9 +17,6 @@ class DiffTool:
         data1 = self.load_json_file(file_path1)
         data2 = self.load_json_file(file_path2)
         return generate_diff(data1, data2)
-
-    def visualize_comparison(self, diff: Dict[str, Any]) -> str:
-        return visualize_diff(diff)
 
     def get_file_versions(self, directory: str, domain: str) -> List[str]:
         domain_dir = os.path.join(directory, domain)
@@ -35,9 +32,18 @@ class DiffTool:
             file_path1 = os.path.join(directory, domain, versions[i])
             file_path2 = os.path.join(directory, domain, versions[i+1])
             diff = self.compare_versions(file_path1, file_path2)
+            serialized_diff = serialize_diff(diff)
+            summary = generate_diff_summary(diff)
             diffs.append({
                 'from_version': versions[i],
                 'to_version': versions[i+1],
-                'diff': diff
+                'diff': serialized_diff,
+                'summary': summary
             })
         return diffs
+
+    def save_diffs(self, diffs: List[Dict[str, Any]], output_dir: str):
+        for i, diff in enumerate(diffs):
+            filename = f"diff_{i}_{diff['from_version']}_{diff['to_version']}.json"
+            filepath = os.path.join(output_dir, filename)
+            self.file_handler.write_file(filepath, json.dumps(diff))

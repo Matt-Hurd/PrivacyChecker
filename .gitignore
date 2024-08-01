@@ -1,5 +1,6 @@
 # Project Files
 data/
+diffs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

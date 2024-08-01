@@ -1,0 +1,4 @@
+url: "https://policies.google.com/privacy"
+scraper_type: "requests"
+selectors:
+  content: "div.vwhFIf"
