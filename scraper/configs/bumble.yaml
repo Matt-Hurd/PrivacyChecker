@@ -1,0 +1,4 @@
+url: "https://bumble.com/en/privacy"
+scraper_type: "requests"
+selectors:
+  content: "div.formatted-text"
