@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "differ"
+version = "0.1.0"
+description = ""
+authors = ["Matt-Hurd <matt-hurd@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+deepdiff = "^7.0.1"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
