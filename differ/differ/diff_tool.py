@@ -44,6 +44,6 @@ class DiffTool:
 
     def save_diffs(self, diffs: List[Dict[str, Any]], output_dir: str):
         for i, diff in enumerate(diffs):
-            filename = f"diff_{i}_{diff['from_version']}_{diff['to_version']}.json"
+            filename = f"diff_{diff['from_version'].split('.')[0]}_{diff['to_version'].split('.')[0]}.json"
             filepath = os.path.join(output_dir, filename)
             self.file_handler.write_file(filepath, json.dumps(diff))
